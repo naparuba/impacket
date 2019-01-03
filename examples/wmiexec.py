@@ -203,7 +203,8 @@ class RemoteShell(cmd.Cmd):
             print self.__outputBuffer
             self.__outputBuffer = u''
         else:
-            self.__pwd = ntpath.normpath(ntpath.join(self.__pwd, s.decode(sys.stdin.encoding)))
+            encoding_ = sys.stdin.encoding if sys.stdin.encoding is not None else 'UTF8'
+            self.__pwd = ntpath.normpath(ntpath.join(self.__pwd, s.decode(encoding_)))
             self.execute_remote('cd ')
             self.__pwd = self.__outputBuffer.strip('\r\n')
             self.prompt = unicode(self.__pwd + '>').encode(CODEC)
