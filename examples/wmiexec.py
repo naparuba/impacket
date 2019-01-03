@@ -263,7 +263,7 @@ class RemoteShell(cmd.Cmd):
         command = self.__shell + data 
         if self.__noOutput is False:
             command += ' 1> ' + '\\\\127.0.0.1\\%s' % self.__share + self.__output  + ' 2>&1'
-        encoding_ =  sys.stdin.encoding is sys.stdin.encoding is not None else 'UTF8'
+        encoding_ =  sys.stdin.encoding if sys.stdin.encoding is not None else 'UTF8'
         self.__win32Process.Create(command.decode(encoding_), self.__pwd, None)
         self.get_output()
 
